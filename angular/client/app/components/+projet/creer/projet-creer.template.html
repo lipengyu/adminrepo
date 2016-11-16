@@ -1,0 +1,21 @@
+<div class="ui container">
+    <h1 class="ui header">Importation d'un nouveau projet
+        <div class="sub header">Permet d'importer un nouveau projet afin de pouvoir le gérer par la suite.</div>
+    </h1>
+    <div class="ui divider"></div>
+
+    <form sui-form [validation]="validation" (onFormSubmit)="submit($event)" class="ui form segment">
+        <div [ngClass]="{'active': loading}" class="ui inverted dimmer">
+            <div class="ui text loader">Loading</div>
+        </div>
+        <div class="field">
+            <label>URL Github</label>
+            <input name="url_github" type="text">
+        </div>
+        <button type="submit" class="ui primary button">Creer le projet</button>
+        <div class="ui error message"></div>
+    </form>
+    <div class="ui segment">
+        <pre><code><div *ngFor="let out of sessionService.stdout">{{out}}</div></code></pre>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="ui container">
+    <div class="ui basic segment">
+        <div class="ui inverted dimmer" [ngClass]="{'active' : loading}">
+            <div class="ui tiny text loader">En cours</div>
+        </div>
+
+        <div class="ui form">
+            <div class="field">
+                <label for="project">Projet</label>
+                <select id="project" sui-dropdown class="ui dropdown" (ngModelChange)="onProjectSelected($event)">
+                    <option value="">Projet</option>
+                    <option *ngFor="let project of projectList;let i = index" [attr.value]="i">{{project.label}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf="projectSelected">
+
+            <div class="ui pointing secondary menu">
+                <a sui-tab="informations" class="item active">Informations</a>
+                <a sui-tab="deploiement" class="item">Déploiement</a>
+                <a sui-tab="monitoring" class="item">Monitoring</a>
+                <a sui-tab="logs" class="item">Logs</a>
+            </div>
+
+            <div class="ui active tab" data-tab="informations">
+                <div class="ui relaxed divided list">
+                    <div class="item">
+                        <div class="header">Owner</div>
+                        {{projectSelected.owner?.login}} ({{projectSelected.owner?.name}})
+                    </div>
+                    <div class="item">
+                        <div class="header">Description</div>
+                        {{projectSelected.informations?.description || 'Aucune'}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui tab" data-tab="deploiement">
+                <div class="ui form">
+                    <div class="inline field">
+                        <label for="npm_scripts">Scripts NPM</label>
+                        <select id="npm_scripts" sui-dropdown class="ui action dropdown" [(ngModel)]="scriptSelected">
+                            <option value=""></option>
+                            <option *ngFor="let script of projectSelected.scripts;let i = index" [attr.value]="i">
+                                {{script}}
+                            </option>
+                        </select>
+                        <button (click)="executeScript()" class="ui primary button">Executer</button>
+                    </div>
+                </div>
+                <div class="ui segment" style="height: 400px">
+                    <pre><code><div *ngFor="let line of output">{{line}}</div></code></pre>
+                </div>
+            </div>
+
+            <div class="ui tab" data-tab="monitoring">
+                Monitoring
+            </div>
+
+            <div class="ui tab" data-tab="logs">
+                Logs
+            </div>
+        </div>
+    </div>
+</div>

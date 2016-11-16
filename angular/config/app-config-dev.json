@@ -1,0 +1,4 @@
+{
+  "restful_api": "http://localhost:8080/api/",
+  "websocket_api": "ws://localhost:8080"
+}

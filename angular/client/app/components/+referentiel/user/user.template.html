@@ -1,0 +1,20 @@
+<table class="ui table">
+    <thead>
+    <tr>
+        <th>Avatar</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>E-mail</th>
+        <th>Profession</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+        <td><img [attr.src]="user.avatar"></td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.firstname}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.job}}</td>
+    </tr>
+    </tbody>
+</table>

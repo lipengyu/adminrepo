@@ -1,0 +1,18 @@
+<div #app_sidebar sui-sidebar class="ui sidebar inverted vertical menu">
+    <div *ngFor="let menu of main_menu" class="item">
+        <div class="header">{{menu.label}}</div>
+        <div class="menu">
+            <a *ngFor="let submenu of menu.subMenu" [routerLink]="submenu.route" routerLinkActive="active"
+               class="item link">
+                {{submenu.label}}
+            </a>
+        </div>
+    </div>
+</div>
+<div class="pusher">
+    <div class="ui top fixed inverted menu">
+        <a class="item" (click)="app_sidebar.toggle()"><i class="icon content"></i></a>
+        <a class="item" [routerLink]="['projet']" routerLinkActive="active">Projets</a>
+    </div>
+    <router-outlet></router-outlet>
+</div>
