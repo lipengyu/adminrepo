@@ -11,7 +11,7 @@ export class ProjetCreerComponent {
 
     projetCreerService: ProjetCreerService;
     sessionService: SessionService;
-    users = [];
+    informations: any;
     loading: boolean = false;
 
     constructor(projetCreerService: ProjetCreerService, sessionService: SessionService) {
@@ -19,23 +19,10 @@ export class ProjetCreerComponent {
         this.sessionService = sessionService;
     }
 
-    submit(event) {
-        try {
-            if (event.valid) {
-                this.loading = true;
-                this.projetCreerService.creerProjet(event.values).toPromise().then((res: any) => {
-                    this.loading = false;
-                })
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    validation = {
-        fields: {
-            url_github: 'empty'
-        }
+    onGetInformations(url: string) {
+        this.projetCreerService.getInformations(url).toPromise().then(res => {
+            console.log(res);
+        });
     }
 
 }

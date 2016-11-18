@@ -17,6 +17,8 @@
 
         <div *ngIf="projectSelected">
 
+            <div class="ui divider"></div>
+
             <div class="ui pointing secondary menu">
                 <a sui-tab="informations" class="item active">Informations</a>
                 <a sui-tab="deploiement" class="item">Déploiement</a>
@@ -39,19 +41,25 @@
 
             <div class="ui tab" data-tab="deploiement">
                 <div class="ui form">
-                    <div class="inline field">
-                        <label for="npm_scripts">Scripts NPM</label>
-                        <select id="npm_scripts" sui-dropdown class="ui action dropdown" [(ngModel)]="scriptSelected">
-                            <option value=""></option>
-                            <option *ngFor="let script of projectSelected.scripts;let i = index" [attr.value]="i">
-                                {{script}}
-                            </option>
-                        </select>
-                        <button (click)="executeScript()" class="ui primary button">Executer</button>
+                    <div class="ui stackable grid">
+                        <div class="fourteen wide column">
+                            <div class="field">
+                                <select id="npm_scripts" sui-dropdown class="ui action dropdown" [(ngModel)]="scriptSelected">
+                                    <option value="">Script NPM</option>
+                                    <option *ngFor="let script of projectSelected.scripts;let i = index" [attr.value]="i">
+                                        {{script}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="two wide column">
+                            <button (click)="executeScript()" class="ui fluid primary button">Executer</button>
+                        </div>
                     </div>
+
                 </div>
-                <div class="ui segment" style="height: 400px">
-                    <pre><code><div *ngFor="let line of output">{{line}}</div></code></pre>
+                <div class="ui basic segment">
+                    <pre style="height: 400px"><code><div *ngFor="let line of output">{{line}}</div></code></pre>
                 </div>
             </div>
 

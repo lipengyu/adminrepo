@@ -34,8 +34,8 @@ export class ProjetComponent {
     onProjectSelected(event) {
         this.loading = true;
         this.projectSelected = this.projectList[event.value];
-        this.projetService.getInformations(this.projectSelected).toPromise().then(informations => {
-            this.projetService.getOwnerInformations(informations).toPromise().then(owner => {
+        this.projetService.getInformations(this.projectSelected).subscribe(informations => {
+            this.projetService.getOwnerInformations(informations).subscribe(owner => {
                 this.projectSelected.informations = informations;
                 this.projectSelected.owner = owner;
                 this.projetService.getPackageJson(this.projectSelected).subscribe(packageJson => {
@@ -51,8 +51,8 @@ export class ProjetComponent {
     executeScript() {
         this.loading = true;
         this.projetService.executeScript(this.projectSelected, this.scriptSelected.text).subscribe(res => {
-            this.loading = false;
             this.output = res.stdout;
+            this.loading = false;
         })
     }
 

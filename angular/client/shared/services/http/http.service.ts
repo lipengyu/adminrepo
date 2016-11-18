@@ -8,16 +8,10 @@ export class HttpService {
 
     http: Http;
     storage: StorageService;
-    restful_api: string;
 
     constructor(http: Http, storage: StorageService) {
         this.http = http;
         this.storage = storage;
-        this.restful_api = process.env.restful_api;
-    }
-
-    getSimpleHttp(): Http {
-        return this.http;
     }
 
     /**
@@ -41,7 +35,7 @@ export class HttpService {
         // Création des options de la requête
         let options = new RequestOptions({
             method: RequestMethod.Get,
-            url: this.restful_api + url,
+            url: url,
             headers: httpHeaders
         });
 
@@ -86,7 +80,7 @@ export class HttpService {
         // Création des options de la requête
         let options = new RequestOptions({
             method: RequestMethod.Post,
-            url: this.restful_api + url,
+            url: url,
             headers: httpHeaders,
             body: httpBody
         });

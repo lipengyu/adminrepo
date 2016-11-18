@@ -1,7 +1,7 @@
 package com.lauparr.controller;
 
 import com.google.common.collect.Maps;
-import com.lauparr.wrapper.output.CollectingLogOutputStream;
+import com.lauparr.dto.output.CollectingLogOutputStream;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;

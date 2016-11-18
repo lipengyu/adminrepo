@@ -2,11 +2,8 @@
   "name": "angular2-express",
   "version": "0.0.1",
   "scripts": {
-    "dev:client:start": "webpack-dev-server --inline --progress --port 3000",
-    "dev:server:start": "set NODE_ENV=development && nodemon --watch ./server ./server/server-development.js",
-    "prod:server:start": "set NODE_ENV=production && node ./server/server-production.js",
-    "prod:clean_install": "node clean_install.js",
-    "build": "rm -rf ../src/main/resources/static/* && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "dev": "webpack-dev-server --inline --progress --port 3000",
+    "prod": "rm -rf ../src/main/resources/static/* && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "dependencies": {
     "@angular/common": "~2.1.1",

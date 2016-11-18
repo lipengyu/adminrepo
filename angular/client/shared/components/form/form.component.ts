@@ -22,6 +22,8 @@ export class SuiFormComponent {
 
     @HostListener('submit', ['$event'])
     submit(event) {
+        event.preventDefault();
+        event.stopPropagation();
         let values = this.getValues();
         let res: any = {
             valid: this.isValid()

@@ -44,6 +44,12 @@ module.exports = webpackMerge(commonConfig, {
             "Access-Control-Allow-Credentials": "true",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
             "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                secure: false
+            }
         }
     }
 });

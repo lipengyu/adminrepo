@@ -1,1 +1,21 @@
-Login
+<form sui-form [validation]="validators" (onFormSubmit)="onSubmitFormLogin($event)" class="ui text container">
+    <div class="ui form">
+        <div class="field">
+            <label>Email</label>
+            <input class="ui input" name="login">
+        </div>
+        <div class="field">
+            <label>Mot de passe</label>
+            <input class="ui input" name="password">
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui two column stackable grid">
+        <div class="column">
+            <button type="button" class="ui fluid primary button">S'inscrire</button>
+        </div>
+        <div class="column">
+            <button class="ui fluid primary button">Se connecter</button>
+        </div>
+    </div>
+</form>

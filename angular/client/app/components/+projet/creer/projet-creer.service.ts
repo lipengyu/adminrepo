@@ -1,18 +1,22 @@
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
 import {Observable} from "rxjs";
+import {HttpService} from "shared";
 
 @Injectable()
 export class ProjetCreerService {
 
-    http: Http;
+    http: HttpService;
 
-    constructor(http: Http) {
+    constructor(http: HttpService) {
         this.http = http;
     }
 
     creerProjet(project: any): Observable<any> {
-        return this.http.post(process.env.restful_api + "projects/with_filesystem", project).map(res => res.json());
+        return this.http.post("/api/projects/with_filesystem", project).map(res => res.json());
     }
 
+    getInformations(url: string) {
+        url = url.replace("github.com", "api.github.com/repos");
+        return this.http.http.get(url).map(res => res.json());
+    }
 }

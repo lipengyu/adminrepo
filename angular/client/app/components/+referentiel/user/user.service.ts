@@ -11,7 +11,7 @@ export class ReferentielUserService {
     }
 
     getUsers() {
-        return this.http.get(process.env.restful_api + "users").map(res => res.json());
+        return this.http.get("/api/users").map(res => res.json());
     }
 
 }

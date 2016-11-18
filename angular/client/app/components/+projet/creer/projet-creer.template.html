@@ -4,18 +4,22 @@
     </h1>
     <div class="ui divider"></div>
 
-    <form sui-form [validation]="validation" (onFormSubmit)="submit($event)" class="ui form segment">
+    <div class="ui form">
         <div [ngClass]="{'active': loading}" class="ui inverted dimmer">
             <div class="ui text loader">Loading</div>
         </div>
-        <div class="field">
-            <label>URL Github</label>
-            <input name="url_github" type="text">
+        <div class="ui stackable grid">
+            <div class="twelve wide column">
+                <div class="field">
+                    <input #inputUrlGithub name="url_github" placeholder="URL Github" type="text">
+                </div>
+            </div>
+            <div class="four wide column">
+                <button (click)="onGetInformations(inputUrlGithub.value)" class="ui fluid primary button">Récupérer les informations</button>
+            </div>
         </div>
-        <button type="submit" class="ui primary button">Creer le projet</button>
-        <div class="ui error message"></div>
-    </form>
-    <div class="ui segment">
+    </div>
+    <div class="ui basic segment">
         <pre><code><div *ngFor="let out of sessionService.stdout">{{out}}</div></code></pre>
     </div>
 </div>

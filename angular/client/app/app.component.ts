@@ -37,7 +37,7 @@ export class AppComponent {
                         route: ["/projet/index"], label: "Liste",
                     },
                     {
-                        route: ["/projet/creer"], label: "Créer"
+                        route: ["/projet/creer"], label: "Import"
                     }
                 ]
             }, {

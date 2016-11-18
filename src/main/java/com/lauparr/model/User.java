@@ -1,8 +1,9 @@
 package com.lauparr.model;
 
-import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,13 +33,40 @@ public class User implements UserDetails, CredentialsContainer, Authentication {
 
     private boolean authenticated;
 
-    @CreatedDate
+    private boolean locked;
+
+    private boolean expired;
+
+    private boolean passwordExpired;
+
+    private boolean enabled;
+
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @DBRef
+    private Profile profile;
+
     public User() {
+        locked = false;
+        expired = false;
+        passwordExpired = false;
+        enabled = true;
+        createdAt = LocalDateTime.now();
+    }
+
+    public User(String email, String password, String nom, String prenom) {
+        this();
+        this.email = email;
+        this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
+    @HandleBeforeSave
+    private void handleBeforeSave() {
+        updatedAt = LocalDateTime.now();
     }
 
     public String getId() {
@@ -55,10 +83,6 @@ public class User implements UserDetails, CredentialsContainer, Authentication {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNom() {
@@ -101,21 +125,33 @@ public class User implements UserDetails, CredentialsContainer, Authentication {
         this.updatedAt = updatedAt;
     }
 
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    @JsonIgnore
     @Override
     public Object getCredentials() {
         return password;
     }
 
+    @JsonIgnore
     @Override
     public Object getDetails() {
         return null;
     }
 
+    @JsonIgnore
     @Override
     public Object getPrincipal() {
         return this;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAuthenticated() {
         return authenticated;
@@ -126,6 +162,7 @@ public class User implements UserDetails, CredentialsContainer, Authentication {
         this.authenticated = isAuthenticated;
     }
 
+    @JsonIgnore
     @Override
     public String getName() {
         return email;
@@ -136,38 +173,49 @@ public class User implements UserDetails, CredentialsContainer, Authentication {
         this.password = null;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return profile.getRoles();
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return !expired;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return !locked;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return !passwordExpired;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
