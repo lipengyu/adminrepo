@@ -1,18 +1,20 @@
-<form sui-form [validation]="validators" (onFormSubmit)="onSubmitFormLogin($event)" class="ui text container">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmitFormLogin()" class="ui text container">
     <div class="ui form">
         <div class="field">
-            <label>Email</label>
-            <input class="ui input" name="login">
+            <label for="input_login">Email</label>
+            <input id="input_login" sui-validation-input formControlName="login" class="ui input" name="login">
+            <sui-validation-messages [control-name]="'login'"></sui-validation-messages>
         </div>
         <div class="field">
-            <label>Mot de passe</label>
-            <input class="ui input" name="password">
+            <label for="input_password">Mot de passe</label>
+            <input type="password" id="input_password" sui-validation-input formControlName="password" class="ui input" name="password">
+            <sui-validation-messages [control-name]="'password'"></sui-validation-messages>
         </div>
     </div>
     <div class="ui divider"></div>
     <div class="ui two column stackable grid">
         <div class="column">
-            <button type="button" class="ui fluid primary button">S'inscrire</button>
+            <button class="ui fluid primary button">S'inscrire</button>
         </div>
         <div class="column">
             <button class="ui fluid primary button">Se connecter</button>

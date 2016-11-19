@@ -1,19 +1,25 @@
 import {NgModule} from "@angular/core";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
+import {BrowserModule} from "@angular/platform-browser";
 import {SharedServicesModule} from "../services/shared-services.module";
 import {SuiSidebarComponent} from "./sidebar/sidebar.component";
 import {SuiFormComponent} from "./form/form.component";
 import {SuiDropdown} from "./dropdown/dropdown.component";
 import {SuiTab} from "./tab/tab.component";
+import {SuiValidationInputComponent} from "./validation/validation-input.component";
+import {SuiValidationMessagesComponent} from "./validation/validation-messages.component";
 
 export const components = [
     SuiDropdown,
     SuiFormComponent,
     SuiSidebarComponent,
-    SuiTab
+    SuiTab,
+    SuiValidationInputComponent,
+    SuiValidationMessagesComponent
 ];
 
 @NgModule({
-    imports: [SharedServicesModule],
+    imports: [BrowserModule, ReactiveFormsModule, FormsModule, SharedServicesModule],
     declarations: [...components],
     exports: [...components]
 })

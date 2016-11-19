@@ -1,5 +1,8 @@
 import {Component} from "@angular/core";
 import {HttpService} from "../../../../shared/services/http/http.service";
+import {Validators, FormControl, FormBuilder, FormGroup} from "@angular/forms";
+import {ValidationUtils} from "../../../../shared/components/validation/validation.service";
+import {AlertService} from "../../../../shared/services/alert/alert.service";
 
 @Component({
     selector: "security-login",
@@ -8,27 +11,31 @@ import {HttpService} from "../../../../shared/services/http/http.service";
 export class SecurityLoginComponent {
 
     http: HttpService;
+    alert: AlertService;
+    loginForm: FormGroup;
 
-    constructor(http: HttpService) {
+    constructor(http: HttpService, builder: FormBuilder, alert: AlertService) {
         this.http = http;
+        this.alert = alert;
+        this.loginForm = builder.group({
+            login: new FormControl('', [Validators.required, ValidationUtils.emailValidator]),
+            password: new FormControl('', Validators.required)
+        })
     }
 
-    onSubmitFormLogin(event) {
-        if (event.valid) {
-            this.http.post("/api/security/login", event.values).subscribe(res => {
+    onSubmitFormLogin() {
+        if (this.loginForm.valid) {
+            let loginInfo = {
+                login: this.loginForm.controls['login'].value,
+                password: this.loginForm.controls['password'].value,
+            };
+            this.http.post("/api/security/login", loginInfo).subscribe(res => {
                 if (res.success) {
-                    console.log(res.data);
+                    this.alert.alert({title: "Connection : Successful", type: "success"});
                 } else {
-                    console.log(res.error.message);
+                    this.alert.alert({title: "Connection : Failed", text: res.error.message, type: "error"});
                 }
             })
-        }
-    }
-
-    validators = {
-        fields: {
-            login: 'empty',
-            password: 'empty'
         }
     }
 

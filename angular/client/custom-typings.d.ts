@@ -2,4 +2,4 @@ declare module '*'
 
 declare var $: any;
 
-declare var io: any;
+declare var swal: any;

@@ -1,10 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const helpers = require('./helpers');
 
-var modulesFolder = './client/';
+const modulesFolder = './client/';
 
 module.exports = {
     entry: {
@@ -61,7 +61,10 @@ module.exports = {
                     { search: 'module.error(error.movedSidebar, element);', replace: ''}
                 ]
             }
-        }]
+        }],
+        noParse: [
+            helpers.root("client/vendors/sweetalert/sweetalert.min.js")
+        ]
     },
 
     plugins: [
