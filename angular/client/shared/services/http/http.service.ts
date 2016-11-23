@@ -8,10 +8,15 @@ export class HttpService {
 
     http: Http;
     storage: StorageService;
+    callbackError: Function;
 
     constructor(http: Http, storage: StorageService) {
         this.http = http;
         this.storage = storage;
+    }
+
+    getSimpleHttp(): Http {
+        return this.http;
     }
 
     /**
@@ -52,6 +57,9 @@ export class HttpService {
 
         // Envoi de la requête
         return this.http.request(request).map(res => res.json()).catch(err => {
+            if (this.callbackError) {
+                this.callbackError(err.json());
+            }
             return Observable.throw(err || 'Une erreur technique est survenue');
         });
     }
@@ -62,7 +70,7 @@ export class HttpService {
      * @param body Corps de la requête avec les paramètres a envoyer au format JSON
      * @returns {Observable<Response>} Réponse de la méthode POST de la route
      */
-    post(url: string, body: any): Observable<any> {
+    post(url: string, body?: any): Observable<any> {
         // Récupération du token dans le localstorage
         let token = this.storage.getItem("token");
 
@@ -96,6 +104,9 @@ export class HttpService {
                 return res;
             }
         }).catch(err => {
+            if (this.callbackError) {
+                this.callbackError(err.json());
+            }
             return Observable.throw(err || 'Une erreur technique est survenue');
         });
     }

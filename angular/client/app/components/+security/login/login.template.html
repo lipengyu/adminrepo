@@ -1,15 +1,16 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmitFormLogin()" class="ui text container">
-    <div class="ui form">
-        <div class="field">
-            <label for="input_login">Email</label>
-            <input id="input_login" sui-validation-input formControlName="login" class="ui input" name="login">
-            <sui-validation-messages [control-name]="'login'"></sui-validation-messages>
-        </div>
-        <div class="field">
-            <label for="input_password">Mot de passe</label>
-            <input type="password" id="input_password" sui-validation-input formControlName="password" class="ui input" name="password">
-            <sui-validation-messages [control-name]="'password'"></sui-validation-messages>
-        </div>
+<app-title [text]="'Connexion'">
+    Ecran de connexion à l'application.
+</app-title>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmitFormLogin()" class="ui form">
+    <div class="field">
+        <label for="input_username">Email</label>
+        <input id="input_username" sui-validation-input formControlName="username" class="ui input" name="username">
+        <sui-validation-messages [control-name]="'username'"></sui-validation-messages>
+    </div>
+    <div class="field">
+        <label for="input_password">Mot de passe</label>
+        <input type="password" id="input_password" sui-validation-input formControlName="password" class="ui input" name="password">
+        <sui-validation-messages [control-name]="'password'"></sui-validation-messages>
     </div>
     <div class="ui divider"></div>
     <div class="ui two column stackable grid">

@@ -16,8 +16,17 @@ export class StorageService {
     setItem(key, value) {
         if (localStorage) {
             localStorage.setItem(key, value);
+        } else {
+            this.docCookies.setItem(key, value);
         }
-        this.docCookies.setItem(key, value);
+    }
+
+    removeItem(key) {
+        if (localStorage) {
+            localStorage.removeItem(key)
+        } else {
+            this.docCookies.removeItem(key)
+        }
     }
 
     private docCookies = {

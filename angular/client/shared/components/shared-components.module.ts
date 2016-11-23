@@ -8,11 +8,13 @@ import {SuiDropdown} from "./dropdown/dropdown.component";
 import {SuiTab} from "./tab/tab.component";
 import {SuiValidationInputComponent} from "./validation/validation-input.component";
 import {SuiValidationMessagesComponent} from "./validation/validation-messages.component";
+import {SuiSticky} from "./sticky/sticky.component";
 
 export const components = [
     SuiDropdown,
     SuiFormComponent,
     SuiSidebarComponent,
+    SuiSticky,
     SuiTab,
     SuiValidationInputComponent,
     SuiValidationMessagesComponent
@@ -26,3 +28,5 @@ export const components = [
 export class SharedComponentsModule {
 
 }
+
+export * from "./validation/validation.utils";

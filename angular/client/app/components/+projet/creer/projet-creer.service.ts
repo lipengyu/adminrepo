@@ -11,12 +11,11 @@ export class ProjetCreerService {
         this.http = http;
     }
 
-    creerProjet(project: any): Observable<any> {
-        return this.http.post("/api/projects/with_filesystem", project).map(res => res.json());
+    importerProjet(project: any): Observable<any> {
+        return this.http.post("/api/projects/import", project);
     }
 
-    getInformations(url: string) {
-        url = url.replace("github.com", "api.github.com/repos");
-        return this.http.http.get(url).map(res => res.json());
+    getRepoInformations(repo: string) {
+        return Observable.fromPromise(this.http.getSimpleHttp().get(`http://api.github.com/users/${repo}/repos`).toPromise());
     }
 }

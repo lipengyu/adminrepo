@@ -1,21 +1,36 @@
-<div class="ui container">
-    <div class="ui basic segment">
-        <div class="ui inverted dimmer" [ngClass]="{'active' : loading}">
+<app-title [text]="'Liste des projets'">
+    Liste des projets déjà importés
+</app-title>
+<div class="ui inverted dimmer" [ngClass]="{'active' : loading}">
             <div class="ui tiny text loader">En cours</div>
         </div>
 
         <div class="ui form">
-            <div class="field">
-                <label for="project">Projet</label>
-                <select id="project" sui-dropdown class="ui dropdown" (ngModelChange)="onProjectSelected($event)">
-                    <option value="">Projet</option>
-                    <option *ngFor="let project of projectList;let i = index" [attr.value]="i">{{project.label}}
-                    </option>
-                </select>
+            <div class="ui stackable two column grid">
+                <div class="column">
+                    <div class="field">
+                        <label for="repository">Dépôt</label>
+                        <select id="repository" sui-dropdown class="ui dropdown" (ngModelChange)="getProjects($event)">
+                            <option value="">Dépôt</option>
+                            <option *ngFor="let r of lists.repository;let i = index" [attr.value]="i">{{r}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field" [ngClass]="{disabled : !lists.project || lists.project.length < 1}">
+                        <label for="project">Projet</label>
+                        <select id="project" sui-dropdown class="ui dropdown" (ngModelChange)="onProjectSelected($event)">
+                            <option value="">Projet</option>
+                            <option *ngFor="let p of lists.project;let i = index" [attr.value]="i">{{p}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div *ngIf="projectSelected">
+<div *ngIf="selections.project">
 
             <div class="ui divider"></div>
 
@@ -30,11 +45,11 @@
                 <div class="ui relaxed divided list">
                     <div class="item">
                         <div class="header">Owner</div>
-                        {{projectSelected.owner?.login}} ({{projectSelected.owner?.name}})
+                        {{selections.project.owner?.login}} ({{selections.project.owner?.name}})
                     </div>
                     <div class="item">
                         <div class="header">Description</div>
-                        {{projectSelected.informations?.description || 'Aucune'}}
+                        {{selections.project.informations?.description || 'Aucune'}}
                     </div>
                 </div>
             </div>
@@ -44,10 +59,10 @@
                     <div class="ui stackable grid">
                         <div class="fourteen wide column">
                             <div class="field">
-                                <select id="npm_scripts" sui-dropdown class="ui action dropdown" [(ngModel)]="scriptSelected">
+                                <select id="npm_scripts" sui-dropdown class="ui action dropdown" [(ngModel)]="selections.script">
                                     <option value="">Script NPM</option>
-                                    <option *ngFor="let script of projectSelected.scripts;let i = index" [attr.value]="i">
-                                        {{script}}
+                                    <option *ngFor="let s of selections.project.scripts;let i = index" [attr.value]="i">
+                                        {{s}}
                                     </option>
                                 </select>
                             </div>
@@ -71,5 +86,3 @@
                 Logs
             </div>
         </div>
-    </div>
-</div>

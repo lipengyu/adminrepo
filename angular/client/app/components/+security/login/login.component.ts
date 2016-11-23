@@ -1,8 +1,7 @@
 import {Component} from "@angular/core";
-import {HttpService} from "../../../../shared/services/http/http.service";
 import {Validators, FormControl, FormBuilder, FormGroup} from "@angular/forms";
-import {ValidationUtils} from "../../../../shared/components/validation/validation.service";
-import {AlertService} from "../../../../shared/services/alert/alert.service";
+import {ValidationUtils, HttpService, AlertService, StorageService} from "shared";
+import {SessionService} from "../../../services/session.service";
 
 @Component({
     selector: "security-login",
@@ -12,26 +11,32 @@ export class SecurityLoginComponent {
 
     http: HttpService;
     alert: AlertService;
+    storage: StorageService;
+    session: SessionService;
     loginForm: FormGroup;
 
-    constructor(http: HttpService, builder: FormBuilder, alert: AlertService) {
+    constructor(http: HttpService, builder: FormBuilder, alert: AlertService, storage: StorageService, session: SessionService) {
         this.http = http;
         this.alert = alert;
+        this.storage = storage;
+        this.session = session;
         this.loginForm = builder.group({
-            login: new FormControl('', [Validators.required, ValidationUtils.emailValidator]),
-            password: new FormControl('', Validators.required)
+            username: new FormControl('laurent.parrot@gmail.com', [Validators.required, ValidationUtils.emailValidator]),
+            password: new FormControl('123', Validators.required)
         })
     }
 
     onSubmitFormLogin() {
         if (this.loginForm.valid) {
             let loginInfo = {
-                login: this.loginForm.controls['login'].value,
+                username: this.loginForm.controls['username'].value,
                 password: this.loginForm.controls['password'].value,
             };
-            this.http.post("/api/security/login", loginInfo).subscribe(res => {
+            this.http.post("/api/security/authenticate", loginInfo).subscribe(res => {
                 if (res.success) {
-                    this.alert.alert({title: "Connection : Successful", type: "success"});
+                    this.storage.setItem("token", res.data.token);
+                    this.session.connect(res.data.user, res.data.token);
+                    this.alert.alert({title: "Connection : Successful", text: `Vous êtes maintenant connecté avec le compte ${res.data.user.username}`, type: "success"});
                 } else {
                     this.alert.alert({title: "Connection : Failed", text: res.error.message, type: "error"});
                 }

@@ -1,18 +1,17 @@
 package com.lauparr;
 
 import com.google.common.collect.Maps;
-import com.lauparr.configuration.SecurityConfig;
-import com.lauparr.model.Profile;
-import com.lauparr.model.Role;
-import com.lauparr.model.User;
-import com.lauparr.repository.ProfileRepository;
-import com.lauparr.repository.RoleRepository;
-import com.lauparr.repository.UserRepository;
+import com.lauparr.app.model.Profile;
+import com.lauparr.app.model.Role;
+import com.lauparr.app.model.User;
+import com.lauparr.app.repository.ProfileRepository;
+import com.lauparr.app.repository.RoleRepository;
+import com.lauparr.app.repository.UserRepository;
+import com.lauparr.core.configuration.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.env.Environment;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -28,9 +27,6 @@ public class AdminRepoApplication implements CommandLineRunner {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private Environment env;
 
     public static void main(String[] args) {
         try {

@@ -1,25 +1,62 @@
-<div class="ui container">
-    <h1 class="ui header">Importation d'un nouveau projet
-        <div class="sub header">Permet d'importer un nouveau projet afin de pouvoir le gérer par la suite.</div>
-    </h1>
-    <div class="ui divider"></div>
-
-    <div class="ui form">
-        <div [ngClass]="{'active': loading}" class="ui inverted dimmer">
-            <div class="ui text loader">Loading</div>
+<app-title [text]="'Importation d\'un nouveau projet'">
+    Permet d'importer un nouveau projet afin de pouvoir le gérer par la suite.
+</app-title>
+<div class="ui divider"></div>
+<form id="formRepository" class="ui form">
+    <div [ngClass]="{'active': loading}" class="ui inverted dimmer">
+        <div class="ui text loader">Loading</div>
+    </div>
+    <div class="ui stackable grid">
+        <div class="twelve wide column">
+            <div class="field">
+                <input #inputUrlGithub name="url_github" placeholder="URL Github" type="text">
+            </div>
         </div>
-        <div class="ui stackable grid">
-            <div class="twelve wide column">
-                <div class="field">
-                    <input #inputUrlGithub name="url_github" placeholder="URL Github" type="text">
-                </div>
-            </div>
-            <div class="four wide column">
-                <button (click)="onGetInformations(inputUrlGithub.value)" class="ui fluid primary button">Récupérer les informations</button>
-            </div>
+        <div class="four wide column">
+            <button (click)="onGetInformations(inputUrlGithub.value)" class="ui fluid primary button">Récupérer les informations</button>
         </div>
     </div>
-    <div class="ui basic segment">
-        <pre><code><div *ngFor="let out of sessionService.stdout">{{out}}</div></code></pre>
+</form>
+<div class="ui hidden divider"></div>
+<div *ngIf="output && output.length > 0" class="ui segment" style="height: 400px; overflow: auto">
+    <div class="ui list">
+        <div *ngFor="let line of output" class="item">
+            <div *ngIf="line != '---'">{{line}}</div>
+            <div *ngIf="line == '---'" class="ui divider"></div>
+        </div>
+    </div>
+</div>
+<div class="ui hidden divider"></div>
+<div *ngIf="projects && projects.length > 0">
+    <div *ngFor="let p of projects" class="ui segment">
+        <div class="ui relaxed divided list">
+            <div *ngIf="p.name" class="item">
+                <div class="right floated content">
+                    <div (click)="importerProjet(p)" class="ui primary button">Importer</div>
+                </div>
+                <div class="content">
+                    <div class="header">Nom</div>
+                    <span>{{p.name}}</span>
+                </div>
+            </div>
+            <div *ngIf="p.description" class="item">
+                <div *ngIf="p.description" class="content">
+                    <div class="header">Description</div>
+                    <span>{{p.description}}</span>
+                </div>
+            </div>
+            <div *ngIf="p.language" class="item">
+                <div *ngIf="p.language" class="content">
+                    <div class="header">Langage</div>
+                    <span>{{p.language}}</span>
+                </div>
+            </div>
+            <div *ngIf="p.url" class="item">
+                <div *ngIf="p.url" class="content">
+                    <div class="header">Url</div>
+                    <span>{{p.url}}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

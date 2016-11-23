@@ -13,6 +13,12 @@
     <div class="ui top fixed inverted menu">
         <a class="item" (click)="app_sidebar.toggle()"><i class="icon content"></i></a>
         <a class="item" [routerLink]="['projet']" routerLinkActive="active">Projets</a>
+        <div class="right menu">
+            <a class="item" (click)="confirmLogout()">Logout</a>
+        </div>
     </div>
-    <router-outlet></router-outlet>
+    <div class="ui container">
+        <router-outlet></router-outlet>
+        <pre><code>{{session.user | json}}</code></pre>
+    </div>
 </div>

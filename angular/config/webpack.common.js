@@ -63,7 +63,8 @@ module.exports = {
             }
         }],
         noParse: [
-            helpers.root("client/vendors/sweetalert/sweetalert.min.js")
+            helpers.root("client/vendors/sweetalert/sweetalert.min.js"),
+            helpers.root("client/vendors/sockjs.js")
         ]
     },
 
@@ -76,7 +77,8 @@ module.exports = {
             'jQuery': 'jquery',
             'jquery': 'jquery',
             'window.$': 'jquery',
-            'window.jQuery': 'jquery'
+            'window.jQuery': 'jquery',
+            'SockJS': helpers.root("client/vendors/sockjs.js")
         }),
         new HtmlWebpackPlugin({
             template: modulesFolder + 'index.pug'

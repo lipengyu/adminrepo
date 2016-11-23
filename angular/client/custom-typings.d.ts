@@ -1,5 +1,9 @@
 declare module '*'
 
-declare var $: any;
+declare let $: any;
 
-declare var swal: any;
+declare let swal: any;
+
+declare let SockJS: any;
+
+declare let Stomp: any;

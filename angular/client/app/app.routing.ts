@@ -10,4 +10,4 @@ const appRoutes: Routes = [
     {path: "administration", loadChildren: "./components/+administration/administration.module#AppAdministrationModule"}
 ];
 
-export const AppRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {useHash: true});
+export const AppRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes, {useHash: false});

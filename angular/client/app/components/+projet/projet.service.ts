@@ -10,26 +10,29 @@ export class ProjetService {
         this.http = http;
     }
 
-    getProjects() {
-        return this.http.get("/api/projects");
+    getRepos() {
+        return this.http.get("/api/projects/repo/list");
     }
 
-    getInformations(project) {
-        let repo = project.urlGithub;
-        repo = repo.replace("github.com", "api.github.com/repos");
-        return this.http.http.get(repo).map(res => res.json());
+    getProjects(repo: string) {
+        return this.http.get("/api/projects/list", {repo: repo});
+    }
+
+    getPackageJson(selections) {
+        return this.http.post("/api/projects/package_json", {repo: selections.repository, project: selections.project.name});
+    }
+
+    getInformations(selections) {
+        let url = `http://api.github.com/repos/${selections.repository}/${selections.project.name}`;
+        return this.http.http.get(url).map(res => res.json());
     }
 
     getOwnerInformations(informations) {
         return this.http.http.get(informations.owner.url).map(res => res.json());
     }
 
-    getPackageJson(project) {
-        return this.http.get("/apiprojects/package_json", {label: project.label});
-    }
-
-    executeScript(project, script) {
-        return this.http.post("/api/projects/execute_script", {project: project, script: script});
+    executeScript(selections, script) {
+        return this.http.post("/api/projects/execute_script", {repo: selections.repository, project: selections.project.name, script: script});
     }
 
 }

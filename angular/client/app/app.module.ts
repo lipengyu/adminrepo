@@ -11,6 +11,8 @@ import {AppSecurityModule} from "./components/+security/security.module";
 import {AppAdministrationModule} from "./components/+administration/administration.module";
 import {AppReferentielModule} from "./components/+referentiel/referentiel.module";
 import {AppProjetModule} from "./components/+projet/projet.module";
+import {SessionService} from "./services/session.service";
+import {AppComponentSharedModule} from "./components/shared/app-component-shared.module";
 
 @NgModule({
     imports: [
@@ -24,12 +26,14 @@ import {AppProjetModule} from "./components/+projet/projet.module";
         AppProjetModule,
         AppSecurityModule,
         AppAdministrationModule,
-        AppReferentielModule
+        AppReferentielModule,
+        AppComponentSharedModule
     ],
     declarations: [
         AppComponent
     ],
     providers: [
+        SessionService,
         StartupServiceProvider
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

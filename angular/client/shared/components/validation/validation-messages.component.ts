@@ -1,7 +1,7 @@
 import {ValidationService} from "./../../services/validation/validation.service";
 import {Component, Host, Input} from "@angular/core";
 import {AbstractControl, FormGroupDirective} from "@angular/forms";
-import {ValidationUtils} from "./validation.service";
+import {ValidationUtils} from "./validation.utils";
 
 @Component({
     selector: 'sui-validation-messages',

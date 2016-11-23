@@ -1,4 +1,4 @@
-import {NgModule} from "@angular/core";
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
@@ -7,6 +7,7 @@ import {CommonHomeComponent} from "./home/home.component";
 import {CommonProfileComponent} from "./profile/profile.component";
 import {CommonComponent} from "./common.component";
 import {SharedModule} from "../../../shared/shared.module";
+import {AppComponentSharedModule} from "../shared/app-component-shared.module";
 
 const routes = [
     {
@@ -34,11 +35,13 @@ const components = [
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
+        AppComponentSharedModule,
         RouterModule.forChild(routes)
     ],
     exports: [
         ...components
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppCommonModule {
 }
